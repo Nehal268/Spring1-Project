@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Pass a JavaScript variable to a partial in EJS -->
+  <%- include('partials/head.ejs', { title: "Home page" }) %>
+
+  <body>
+    <%- include('partials/navbar2.ejs') %>
+   <!--Content Start-->
+
+  
+
+  <!-- ##### Contact Form Area Start ##### -->
+  <div class="contact-area section-padding-0-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h3>Registration</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-form-area">
+                    <form action="/user/signup" method="POST">
+                        <div class="row">
+
+                            <div class="col-12 col-lg-3">
+
+                            </div>
+                            <div class="col-12 col-lg-6 text-center">
+                                <div class="row">
+                                    <div class="col-6 col-lg-6">
+                                        <input type="text" class="form-control" name="fname" id="fname" placeholder="Firstname">
+                                        <br>
+                                    </div>
+                                    <div class="col-6 col-lg-6">
+                                        <input type="text" class="form-control" name="lname" id="lname" placeholder="Lastname">
+                                        <br>
+                                    </div>
+                                    <div class="col-12 col-lg-12">        
+                                        <input type="text" class="form-control" name="mobileno" id="mobileno" placeholder="Mopbile No">
+                                        <br>  
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="E-mail">
+                                        <br>
+                                        <input type="email" class="form-control" name="password" id="password" placeholder="Password">
+                                        <br>
+                                             
+                                    </div>
+                                </div>
+
+                                <button class="btn delicious-btn mt-30" type="submit">Submit</button>
+                            </div>
+
+                            <div class="col-12 col-lg-3">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Contact Form Area End ##### -->
+
+   <!--Content End-->
+    <%- include('partials/footer.ejs') %>
+  </body>
+</html>
+
+

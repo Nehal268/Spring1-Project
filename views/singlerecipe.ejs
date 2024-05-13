@@ -1,0 +1,133 @@
+<!-- Define a function to render the recipe -->
+<% function renderRecipe(recipe) { %>
+        <!-- Receipe Slider -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="receipe-slider owl-carousel">
+                        <img class="myimg2" src="<%= recipe.imageUrl %>" alt="">
+                        <!-- <img src="img/bg-img/bg5.jpg" alt="">
+                        <img src="img/bg-img/bg5.jpg" alt=""> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Receipe Content Area -->
+        <div class="receipe-content-area">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <div class="receipe-headline my-5">
+                            <span><%= formatDate(recipe.createdAt) %></span>
+                            <h2><%= recipe.title %></h2>
+                            <div class="receipe-duration">
+                                <h6><%= recipe.description %></h6>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="receipe-ratings text-right my-5">
+                            <div class="ratings">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </div>
+                            <a href="/" class="btn delicious-btn">Back</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <!-- Single Preparation Step -->
+                        <!-- <div class="single-preparation-step d-flex">
+                            <h4>01.</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
+                        </div> -->
+                        <!-- <div class="single-preparation-step d-flex">
+                            <h4>*</h4>
+                            <p><%= recipe.instructions %></p>
+                        </div> -->
+                        <% 
+  const instructionsArray = recipe.instructions.split('. '); // Assuming each instruction ends with a period followed by a space
+  instructionsArray.forEach((instruction, index) => { 
+%>
+ <!-- Single Preparation Step -->
+                         <div class="single-preparation-step d-flex">
+                            <h4><%= index + 1 %>.</h4>
+                            <p><%= instruction.trim() %></p>
+                        </div> 
+<% }) %>
+                    </div>
+
+                    <!-- Ingredients -->
+                    <div class="col-12 col-lg-4">
+                        <div class="ingredients">
+                            <h4>Ingredients</h4>
+
+                            <% recipe.ingredients.forEach((ingredient) => { %>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1"><%= ingredient %></label>
+                                </div>
+                              <% }); %>
+                        </div>
+                    </div>
+                </div>
+
+  <div class="row">
+<div class="col-2">
+    
+  <!-- Update button -->
+    <form class="action-form" method="GET" action="/single-recipe/update/<%= recipe._id %>">
+        <button class="btn delicious-btn mt-30" type="submit">Update</button>
+      </form>
+</div>
+<div class="col-2">
+<!-- Delete button -->
+<form class="action-form" method="POST" action="/single-recipe/<%= recipe._id %>?_method=DELETE">
+    <button class="btn delicious-btn mt-30" style="background-color: #ff4747;" type="submit">Delete</button>
+  </form>
+</div>
+  </div>
+  
+
+
+                
+            </div>
+        </div>
+    </div>
+
+    <% } %>
+  
+    <!-- Function to format date -->
+    <% function formatDate(dateString) {
+        const date = new Date(dateString);
+        const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        return formattedDate;
+    } %>
+
+    
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Pass a JavaScript variable to a partial in EJS -->
+  <%- include('partials/head.ejs', { title: recipe.title }) %>
+  <body>
+    <%- include('partials/navbar.ejs') %>
+    
+    <!-- <%- include('partials/single.ejs') %> -->
+
+    <% if (recipe) { %> <%= renderRecipe(recipe) %> <% } else { %>
+        <p>No recipe found.</p>
+        <% } %>
+
+
+    <%- include('partials/footer.ejs') %>
+  </body>
+</html>
